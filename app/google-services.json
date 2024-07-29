@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1079391077324",
+    "firebase_url": "https://sdg8-460da-default-rtdb.firebaseio.com",
+    "project_id": "sdg8-460da",
+    "storage_bucket": "sdg8-460da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079391077324:android:c88783235de80f0baa1369",
+        "android_client_info": {
+          "package_name": "com.app.sdg8www"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABUa7wsi6sDFKT0v3k_VFG1ntHVUvqRPo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
