@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
             if (usernameEditText.getText().isEmpty() || passwordEditText.getText().isEmpty()) {
                 val alert = AlertDialog.Builder(this@LoginActivity)
-                alert.setTitle("Please enter credential")
+                alert.setTitle("Please enter your information")
                 alert.setPositiveButton("OK") { dialog: DialogInterface, which: Int -> View.OnClickListener {
                     dialog.dismiss() } }
                 alert.show()
@@ -61,25 +61,4 @@ class LoginActivity : AppCompatActivity() {
                 finish()
         }
     }
-}
-
-private fun Any.addOnCompleteListener(loginActivity: LoginActivity, any: Any) {
-
-}
-
-class Firebase {
-    companion object {
-        val auth: FirebaseAuth
-            get() {
-                TODO()
-            }
-    }
-
-}
-
-class FirebaseAuth {
-    fun signInWithEmailAndPassword(toString: String, toString1: String): Any {
-        TODO("Not yet implemented")
-    }
-
 }

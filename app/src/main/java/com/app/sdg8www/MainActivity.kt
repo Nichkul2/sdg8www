@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                     val alert = AlertDialog.Builder(this@MainActivity)
-                    alert.setTitle("Please confirm to exit")
-                    alert.setPositiveButton("Exit") { dialogInterface: DialogInterface?, i: Int -> finish() }
-                    alert.setNegativeButton("Cancel") { dialogInterface: DialogInterface?, i: Int ->
+                    alert.setTitle("ต้องการออกจากแอพพลิเคชั่นหรือไม่?")
+                    alert.setPositiveButton("ออก") { dialogInterface: DialogInterface?, i: Int -> finish() }
+                    alert.setNegativeButton("ยกเลิก") { dialogInterface: DialogInterface?, i: Int ->
                         dialogInterface?.dismiss()
                     }
                     alert.show()
@@ -53,12 +53,12 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         layoutInterviewCoach.setOnClickListener {
-            val intent = Intent(this@MainActivity, InterviewCoachActivity::class.java)
+            val intent = Intent(this@MainActivity, MainAiActivity::class.java)
             startActivity(intent)
             finish()
         }
         icInterview.setOnClickListener {
-            val intent = Intent(this@MainActivity, InterviewCoachActivity::class.java)
+            val intent = Intent(this@MainActivity, MainAiActivity::class.java)
             startActivity(intent)
             finish()
         }

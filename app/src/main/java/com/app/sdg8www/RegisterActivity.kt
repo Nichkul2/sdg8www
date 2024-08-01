@@ -49,7 +49,7 @@ class RegisterActivity : AppCompatActivity() {
                 || confirmPasswordEditText.text.isEmpty()
             ) {
                 val alert = AlertDialog.Builder(this@RegisterActivity)
-                alert.setTitle("Please enter credential")
+                alert.setTitle("Please enter your information!")
                 alert.setPositiveButton("OK") { dialog: DialogInterface, which: Int ->
                     View.OnClickListener {
                         dialog.dismiss()
@@ -58,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
                 alert.show()
             } else if (passwordEditText.text.toString() != confirmPasswordEditText.text.toString()){
                 val alert = AlertDialog.Builder(this@RegisterActivity)
-                alert.setTitle("Passwords do not match")
+                alert.setTitle("password หรือ confirm password ไม่ถูกต้อง!")
                 alert.setPositiveButton("OK") { dialog: DialogInterface, which: Int ->
                     View.OnClickListener {
                         dialog.dismiss()
@@ -72,7 +72,7 @@ class RegisterActivity : AppCompatActivity() {
                             val user = auth.currentUser
                             user?.uid
                             database =
-                                FirebaseDatabase.getInstance("https://sdg8-460da-default-rtdb.firebaseio.com")
+                                FirebaseDatabase.getInstance("https://sdg8-460da-default-rtdb.firebaseio.com/")
                             reference = database!!.getReference("Users")
                             val userProfile = User("",usernameEditText.text.toString(),phoneNumberEditText.text.toString())
                             reference!!.child(user?.uid.toString()).setValue(userProfile)
@@ -98,12 +98,4 @@ class RegisterActivity : AppCompatActivity() {
             finish()
         }
     }
-}
-
-class DatabaseReference {
-
-}
-
-class FirebaseDatabase {
-
 }

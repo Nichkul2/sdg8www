@@ -29,9 +29,9 @@ class InterviewCoachActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val alert = AlertDialog.Builder(this@InterviewCoachActivity)
-                alert.setTitle("Please confirm to exit")
-                alert.setPositiveButton("Exit") { dialogInterface: DialogInterface?, i: Int -> finish() }
-                alert.setNegativeButton("Cancel") { dialogInterface: DialogInterface?, i: Int ->
+                alert.setTitle("ต้องการออกจากแอพพลิเคชั่นหรือไม่?")
+                alert.setPositiveButton("ออก") { dialogInterface: DialogInterface?, i: Int -> finish() }
+                alert.setNegativeButton("ยกเลิก") { dialogInterface: DialogInterface?, i: Int ->
                     dialogInterface?.dismiss()
                 }
                 alert.show()
