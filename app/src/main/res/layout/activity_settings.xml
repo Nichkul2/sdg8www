@@ -14,94 +14,109 @@
         android:layout_height="match_parent"
         android:layout_above="@id/layout_button"
         android:orientation="vertical">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/login_logo" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/white" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:orientation="horizontal">
-
         <ImageView
-            android:id="@+id/img_profile"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@color/gray" />
-
-        <TextView
-            android:id="@+id/tx_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:src="@drawable/login_logo" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="Name..."
-            android:textColor="@color/white" />
-    </LinearLayout>
+            android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/et_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/background_grey"
-        android:drawableLeft="@drawable/arroba"
-        android:drawablePadding="10dp"
-        android:hint="Email"
-        android:padding="6dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+            <ImageView
+                android:id="@+id/img_profile"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@color/gray" />
 
-    <EditText
-        android:id="@+id/et_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/background_grey"
-        android:drawableLeft="@drawable/account"
-        android:drawablePadding="10dp"
-        android:hint="Firstname"
-        android:padding="6dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+            <TextView
+                android:id="@+id/tx_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:text="Name..."
+                android:textColor="@color/white" />
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/et_last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/background_grey"
-        android:drawableLeft="@drawable/account"
-        android:drawablePadding="10dp"
-        android:hint="Lastname"
-        android:padding="6dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/background_grey"
+            android:drawableLeft="@drawable/arroba"
+            android:drawablePadding="10dp"
+            android:hint="Email"
+            android:padding="6dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="20dp"
-        android:backgroundTint="@color/white"
-        android:text="Log out"
-        android:textColor="@color/black" />
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/background_grey"
+            android:drawableLeft="@drawable/account"
+            android:drawablePadding="10dp"
+            android:hint="Firstname"
+            android:padding="6dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+
+        <EditText
+            android:id="@+id/et_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/background_grey"
+            android:drawableLeft="@drawable/account"
+            android:drawablePadding="10dp"
+            android:hint="Lastname"
+            android:padding="6dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+
+        <EditText
+            android:id="@+id/et_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/background_grey"
+            android:drawableLeft="@drawable/account"
+            android:drawablePadding="10dp"
+            android:hint="Bio"
+            android:padding="6dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="@color/white"
+            android:text="Log out"
+            android:textColor="@color/black" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/layout_button"
