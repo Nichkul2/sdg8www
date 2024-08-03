@@ -6,10 +6,13 @@ import android.content.ContentValues.TAG
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -29,11 +32,21 @@ class LoginActivity : AppCompatActivity() {
         val passwordEditText = findViewById<EditText>(R.id.et_password)
         val loginButton = findViewById<Button>(R.id.btn_login)
         val signUp = findViewById<TextView>(R.id.tx_sign_up)
+        val icShowPassword = findViewById<ImageView>(R.id.show_pass_btn)
+        icShowPassword.setOnClickListener {
+            if(passwordEditText.transformationMethod.equals(PasswordTransformationMethod.getInstance())){
+                passwordEditText.transformationMethod = HideReturnsTransformationMethod.getInstance();
+                icShowPassword.setImageResource(R.drawable.hide)
+            } else{
+                passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance();
+                icShowPassword.setImageResource(R.drawable.hide1)
 
+            }
+        }
         loginButton.setOnClickListener {
             if (usernameEditText.getText().isEmpty() || passwordEditText.getText().isEmpty()) {
                 val alert = AlertDialog.Builder(this@LoginActivity)
-                alert.setTitle("Please enter your information")
+                alert.setTitle("Please enter credential")
                 alert.setPositiveButton("OK") { dialog: DialogInterface, which: Int -> View.OnClickListener {
                     dialog.dismiss() } }
                 alert.show()
@@ -56,9 +69,9 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         signUp.setOnClickListener {
-                val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-                startActivity(intent)
-                finish()
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }
