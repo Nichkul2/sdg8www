@@ -16,8 +16,35 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
             android:src="@drawable/login_logo"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@color/gray"
+                android:layout_marginBottom="10dp"
+                android:layout_centerInParent="true"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/selectImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:background="@color/gray"
+                    android:padding="4dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Select Image"/>
+            </LinearLayout>
+        </RelativeLayout>
         <EditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
@@ -48,7 +75,19 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:drawablePadding="10dp"
-            android:hint="Lsrt name"
+            android:hint="Last name"
+            android:padding="6dp"
+            android:drawableLeft="@drawable/account"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:background="@drawable/background_grey"/>
+        <EditText
+            android:id="@+id/et_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:drawablePadding="10dp"
+            android:hint="Bio"
             android:padding="6dp"
             android:drawableLeft="@drawable/account"
             android:textColor="@color/white"
