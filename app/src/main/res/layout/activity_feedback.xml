@@ -32,198 +32,256 @@
             android:padding="8dp"
             android:layout_margin="10dp"
             android:textColor="@color/white"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/background_white"
-        android:layout_margin="20dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_feed_back">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            android:src="@drawable/feedback"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layout_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:textColor="@color/black"
-            android:text="WHAT KIND OF FEEDBACK DO YOU HAVE?"/>
-        <TextView
-            android:id="@+id/tx_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:drawableLeft="@drawable/smile"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            android:background="#E4E1E1"
-            android:text="    I like something"/>
-        <TextView
-            android:id="@+id/tx_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:drawableLeft="@drawable/sad_face"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            android:background="#E4E1E1"
-            android:text="    I don’t like something"/>
-        <TextView
-            android:id="@+id/tx_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:drawableLeft="@drawable/question_mark"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            android:background="#E4E1E1"
-            android:text="    I have a suggestion"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layout_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tx_select"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="20dp"
-                android:textColor="@color/black"
-                android:text="I Like"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="20dp"
-                android:textColor="@color/black"
-                android:text="WHAT THING DO YOU LIKE?"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Type here..."/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:text="RATE OUR APP"/>
+            android:orientation="vertical"
+            android:background="@drawable/background_white"
+            android:layout_margin="20dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:background="@drawable/background_feed_back">
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:src="@drawable/star_2"/>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="2dp"
-                    android:src="@drawable/star_2"/>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="2dp"
-                    android:src="@drawable/star_2"/>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="2dp"
-                    android:src="@drawable/star_2"/>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="2dp"
-                    android:src="@drawable/star_2"/>
+                    android:src="@drawable/feedback"/>
             </LinearLayout>
-            <TextView
-                android:id="@+id/tx_submit"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/layout_1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_gravity="right"
-                android:layout_margin="10dp"
-                android:background="@drawable/background_submit"
-                android:text="SUBMIT"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layout_3"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="20dp"
-                android:src="@drawable/success"/>
-            <TextView
-                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:textColor="@color/black"
+                    android:text="WHAT KIND OF FEEDBACK DO YOU HAVE?"/>
+                <TextView
+                    android:id="@+id/tx_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:drawableLeft="@drawable/smile"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:background="#E4E1E1"
+                    android:text="    I like something"/>
+                <TextView
+                    android:id="@+id/tx_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:drawableLeft="@drawable/sad_face"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:background="#E4E1E1"
+                    android:text="    I don’t like something"/>
+                <TextView
+                    android:id="@+id/tx_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:drawableLeft="@drawable/question_mark"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:background="#E4E1E1"
+                    android:text="    I have a suggestion"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
-                android:text="Thank you for your feedback."/>
-             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                 android:textSize="10sp"
-                android:text="Your feedback is highly valued and is used"/>
-             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                 android:textSize="10sp"
-                android:text="used to improve our service"/>
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tx_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:textColor="@color/black"
+                    android:text="I Like"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:textColor="@color/black"
+                    android:text="WHAT THING DO YOU LIKE?"/>
+                <EditText
+                    android:id="@+id/et_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Type here..."/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:text="RATE OUR APP"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/star_bg1"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/star_3"/>
+                        <ImageView
+                            android:id="@+id/star_1"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/star_2"/>
+                    </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/star_bg2"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/star_3"/>
+                        <ImageView
+                            android:id="@+id/star_2"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/star_2"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/star_bg3"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/star_3"/>
+                        <ImageView
+                            android:id="@+id/star_3"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/star_2"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/star_bg4"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/star_3"/>
+                        <ImageView
+                            android:id="@+id/star_4"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/star_2"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/star_bg5"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/star_3"/>
+                        <ImageView
+                            android:id="@+id/star_5"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/star_2"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tx_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_gravity="right"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background_submit"
+                    android:text="SUBMIT"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_3"
+                android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/background_submit"
-                android:text="Done"/>
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="20dp"
+                    android:src="@drawable/success"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/black"
+                    android:text="Thank you for your feedback."/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
+                    android:text="Your feedback is highly valued and is used"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
+                    android:text="used to improve our service"/>
+
+                <TextView
+                    android:id="@+id/tx_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background_submit"
+                    android:text="Done"/>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/layout_button"
