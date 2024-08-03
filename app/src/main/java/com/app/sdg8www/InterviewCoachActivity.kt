@@ -163,3 +163,4 @@ class InterviewCoachActivity : AppCompatActivity() {
     data class ConversationEntry(val userMessage: String, val botResponse: String)
 }
 
+//comment 3 aug 8pm
