@@ -9,6 +9,7 @@ import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
@@ -20,40 +21,69 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import android.util.Log
 
 class InterviewCoachActivity : AppCompatActivity() {
-    var listData: ArrayList<String>? = null
+
+    private var listData: ArrayList<String>? = null
+    private var currentIndex = 0
+    private lateinit var database: DatabaseReference
+    private lateinit var userEmail: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_interview_coach)
+
+        // Get the logged-in user's email
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            userEmail = user.email ?: "unknown_user"
+        } else {
+            Log.e("InterviewCoachActivity", "No user is logged in.")
+            finish()  // Exit the activity if no user is logged in
+            return
+        }
+
+        // Initialize the Firebase database reference with the user's email
+        database = Firebase.database.reference.child("Interview").child(userEmail.replace(".", ","))
+
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val alert = AlertDialog.Builder(this@InterviewCoachActivity)
-                alert.setTitle("ต้องการออกจากแอพพลิเคชั่นหรือไม่?")
-                alert.setPositiveButton("ออก") { dialogInterface: DialogInterface?, i: Int -> finish() }
-                alert.setNegativeButton("ยกเลิก") { dialogInterface: DialogInterface?, i: Int ->
+                alert.setTitle("Please confirm to exit")
+                alert.setPositiveButton("Exit") { dialogInterface: DialogInterface?, i: Int -> finish() }
+                alert.setNegativeButton("Cancel") { dialogInterface: DialogInterface?, i: Int ->
                     dialogInterface?.dismiss()
                 }
                 alert.show()
-            }})
+            }
+        })
+
         listData = ArrayList()
-        listData!!.add("ทดสอบ chat bot")
-        listData!!.add("Welcome to job interview")
-        listData!!.add("Hello")
-        listData!!.add("test for chat bot")
-        listData!!.add("ทดสอบการใช้งาน")
-        listData!!.add("รบกวนสอบถามเพิ่มเติม")
-        listData!!.add("ค้นหางานที่ต้องการ")
-        listData!!.add("Serch your job")
-        listData!!.add("coach for your job")
-        listData!!.add("test me!!")
-        listData!!.add("random test")
-        listData!!.add("สอบถามรายละเอียด")
-        listData!!.add("new message")
-        listData!!.add("ทดสอบระบบ")
-        listData!!.add("sdg8www application")
-        listData!!.add("test my app")
-        listData!!.add("Welcome to job interview")
+        listData!!.apply {
+            add("Test chat bot")
+            add("Welcome to job interview")
+            add("Hello")
+            add("test for chat bot")
+            add("ทดสอบการใช้งาน")
+            add("รบกวนสอบถามเพิ่มเติม")
+            add("ค้นหางานที่ต้องการ")
+            add("Serch your job")
+            add("coach for your job")
+            add("test me!!")
+            add("random test")
+            add("สอบถามรายละเอียด")
+            add("new message")
+            add("ทดสอบระบบ")
+            add("sdg8www application")
+            add("test my app")
+            add("Welcome to job interview")
+        }
 
         val icHome = findViewById<ImageView>(R.id.ic_home)
         val icInterview = findViewById<ImageView>(R.id.ic_interview)
@@ -64,27 +94,36 @@ class InterviewCoachActivity : AppCompatActivity() {
         val etType = findViewById<EditText>(R.id.et_type)
         val layout = findViewById<LinearLayout>(R.id.layout_list)
         val btnSend = findViewById<Button>(R.id.btn_send)
-        btnSend.setOnClickListener{
-            if (etType.text.isNotEmpty()){
-                val textview = TextView(this)
-                textview.setGravity(Gravity.RIGHT)
-                textview.setTextColor(Color.parseColor("#ffffff"))
-                textview.text = etType.text
-                textview.setBackgroundResource(R.drawable.background_circle_gray)
-                val param = textview.layoutParams as ViewGroup.MarginLayoutParams
-                param.setMargins(10,10,10,10)
-                textview.setPadding(20,20,20,20)
-                layout.addView(textview)
-                val rnds = (0..16).random()
-                val textview2 = TextView(this)
-                textview2.setGravity(Gravity.LEFT)
-                textview2.setTextColor(Color.parseColor("#ffffff"))
-                textview2.text = listData!![rnds]
-                textview2.setBackgroundResource(R.drawable.background_circle_result)
-                val param2 = textview2.layoutParams as ViewGroup.MarginLayoutParams
-                param2.setMargins(10,10,10,10)
-                textview.setPadding(20,20,20,20)
-                layout.addView(textview2)
+
+        btnSend.setOnClickListener {
+            if (etType.text.isNotEmpty()) {
+                val userMessage = etType.text.toString()
+                val textViewUser = TextView(this)
+                textViewUser.gravity = Gravity.RIGHT
+                textViewUser.setTextColor(Color.parseColor("#ffffff"))
+                textViewUser.text = userMessage
+                textViewUser.setBackgroundResource(R.drawable.background_circle_gray)
+                textViewUser.setPadding(20, 20, 20, 20)
+                layout.addView(textViewUser)
+
+                val botResponse = if (currentIndex < listData!!.size) {
+                    listData!![currentIndex++]
+                } else {
+                    "no more questions!"
+                }
+                val textViewBot = TextView(this)
+                textViewBot.gravity = Gravity.LEFT
+                textViewBot.setTextColor(Color.parseColor("#ffffff"))
+                textViewBot.text = botResponse
+                textViewBot.setBackgroundResource(R.drawable.background_circle_result)
+                textViewBot.setPadding(20, 20, 20, 20)
+                layout.addView(textViewBot)
+
+                // Append conversation entry to Firebase
+                val conversationEntry = ConversationEntry(userMessage, botResponse)
+                database.push().setValue(conversationEntry)
+
+                etType.setText("")
             }
         }
 
@@ -108,12 +147,19 @@ class InterviewCoachActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-        val interviewpaint = header.paint
-        val interviewwidth = interviewpaint.measureText(header.text.toString())
-        val interviewtextShader: Shader = LinearGradient(0f, 0f, interviewwidth, header.textSize, intArrayOf(
-            Color.parseColor("#915B5B"),
-            Color.parseColor("#F79A9A")
-        ), null, Shader.TileMode.REPEAT)
 
+        val interviewPaint = header.paint
+        val interviewWidth = interviewPaint.measureText(header.text.toString())
+        val interviewTextShader: Shader = LinearGradient(
+            0f, 0f, interviewWidth, header.textSize,
+            intArrayOf(
+                Color.parseColor("#915B5B"),
+                Color.parseColor("#F79A9A")
+            ), null, Shader.TileMode.REPEAT
+        )
+        header.paint.shader = interviewTextShader
     }
+
+    data class ConversationEntry(val userMessage: String, val botResponse: String)
 }
+
