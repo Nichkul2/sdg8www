@@ -82,5 +82,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("androidx.activity:activity-compose:1.9.1")
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
 
 }
