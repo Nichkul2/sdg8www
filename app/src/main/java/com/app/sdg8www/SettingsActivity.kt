@@ -3,6 +3,7 @@ package com.app.sdg8www
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -13,6 +14,8 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
@@ -22,6 +25,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class SettingsActivity : AppCompatActivity() {
     var uid: String? = null
@@ -33,9 +38,9 @@ class SettingsActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val alert = AlertDialog.Builder(this@SettingsActivity)
-                alert.setTitle("ต้องการออกจากแอพพลิเคชั่นหรือไม่?")
-                alert.setPositiveButton("ออก") { dialogInterface: DialogInterface?, i: Int -> finish() }
-                alert.setNegativeButton("ยกเลิก") { dialogInterface: DialogInterface?, i: Int ->
+                alert.setTitle("Please confirm to exit")
+                alert.setPositiveButton("Exit") { dialogInterface: DialogInterface?, i: Int -> finish() }
+                alert.setNegativeButton("Cancel") { dialogInterface: DialogInterface?, i: Int ->
                     dialogInterface?.dismiss()
                 }
                 alert.show()
@@ -49,6 +54,7 @@ class SettingsActivity : AppCompatActivity() {
         val etEmail = findViewById<EditText>(R.id.et_email)
         val etName = findViewById<EditText>(R.id.et_name)
         val etLastName = findViewById<EditText>(R.id.et_last_name)
+        val etBio = findViewById<EditText>(R.id.et_bio)
         val imgProfile = findViewById<ImageView>(R.id.img_profile)
         val user = Firebase.auth.currentUser
         user?.let {
@@ -61,22 +67,49 @@ class SettingsActivity : AppCompatActivity() {
                     if (dataSnapshot.exists()) {
                         val value = dataSnapshot.value as HashMap<String, Item>?
                         for ((id) in value!!) {
-                            val firstName = dataSnapshot.child(id).child("firstName").getValue(
-                                String::class.java
-                            )
-                            val lastName = dataSnapshot.child(id).child("lastName").getValue(
-                                String::class.java
-                            )
-                            txName.text = firstName+" "+lastName
-                            etEmail.setText(it.email)
-                            etName.setText(firstName)
-                            etLastName.setText(lastName)
+                            if (id == uid) {
+                                val firstName = dataSnapshot.child(id).child("firstName").getValue(
+                                    String::class.java
+                                )
+                                val lastName = dataSnapshot.child(id).child("lastName").getValue(
+                                    String::class.java
+                                )
+                                val bio = dataSnapshot.child(id).child("bio").getValue(
+                                    String::class.java
+                                )
+                                val image = dataSnapshot.child(id).child("image").getValue(
+                                    String::class.java
+                                )
+                                txName.text = firstName + " " + lastName
+                                etEmail.setText(it.email)
+                                etName.setText(firstName)
+                                etLastName.setText(lastName)
+                                etBio.setText(bio)
+
+                                val ref: StorageReference =
+                                    FirebaseStorage.getInstance().getReference("ProfilePictures")
+                                        .child(image!!)
+                                val ONE_MEGABYTE = (1024 * 1024).toLong()
+                                ref.getBytes(ONE_MEGABYTE)
+                                    .addOnSuccessListener(OnSuccessListener<ByteArray> { bytes ->
+                                        val bmp =
+                                            BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                                        imgProfile.setImageBitmap(bmp)
+                                    }).addOnFailureListener(OnFailureListener {
+                                        /*Toast.makeText(
+                                            applicationContext,
+                                            "No Such file or Path found!!",
+                                            Toast.LENGTH_LONG
+                                        ).show()*/
+                                    })
+                            }
                         }
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {}
             })
+
         }
 
         icHome.setOnClickListener {
