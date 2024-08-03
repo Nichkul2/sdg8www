@@ -10,7 +10,9 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ListView
+import android.widget.SearchView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -18,15 +20,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class WorkCommunityActivity : AppCompatActivity() {
-    var listData: ArrayList<Item>? = null
+    var listName: ArrayList<String>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val alert = AlertDialog.Builder(this@WorkCommunityActivity)
-                alert.setTitle("ต้องการออกจากแอพพลิเคชั่นหรือไม่?")
-                alert.setPositiveButton("ออก") { dialogInterface: DialogInterface?, i: Int -> finish() }
-                alert.setNegativeButton("ยกเลิก") { dialogInterface: DialogInterface?, i: Int ->
+                alert.setTitle("Please confirm to exit")
+                alert.setPositiveButton("Exit") { dialogInterface: DialogInterface?, i: Int -> finish() }
+                alert.setNegativeButton("Cancel") { dialogInterface: DialogInterface?, i: Int ->
                     dialogInterface?.dismiss()
                 }
                 alert.show()
@@ -36,6 +38,7 @@ class WorkCommunityActivity : AppCompatActivity() {
         val icInterview = findViewById<ImageView>(R.id.ic_interview)
         val icCommunity = findViewById<ImageView>(R.id.ic_community)
         val icSetting = findViewById<ImageView>(R.id.ic_setting)
+        val searchView = findViewById<SearchView>(R.id.et_search)
 
         icHome.setOnClickListener {
             val intent = Intent(this@WorkCommunityActivity, MainActivity::class.java)
@@ -62,22 +65,33 @@ class WorkCommunityActivity : AppCompatActivity() {
         ), null, Shader.TileMode.REPEAT)
 
         header.paint.setShader(textShader)
-        listData = ArrayList()
-        listData!!.add(
-            Item("1.","Teacher/Educator","Provide education and training to develop a skilled workforce that contributes to economic growth and sustainable development"))
-        listData!!.add(
-            Item("2.","Business Analyst","Analyze business processes and recommend improvements to drive economic growth and job creation"))
-        listData!!.add(
-            Item("3.","Software Developer","Design, develop, and maintain software applications that enhance business productivity and promote economic growth"))
-        listData!!.add(
-            Item("4.","Human Resources Manager","Oversee recruitment and employee development programs to ensure fair and productive employment practices"))
-        listData!!.add(
-            Item("5.","Sustainability Consultant","Advise organizations on sustainable practices that promote economic growth while minimizing environmental impact"))
-        listData!!.add(
-            Item("6.","Social Worker","Support individuals and communities in overcoming barriers to employment and economic participation"))
-
-        val adapterItem = ItemAdapter(this@WorkCommunityActivity, listData!!)
+        listName = ArrayList()
+        listName!!.add("Teacher/Educator")
+        listName!!.add("Business Analyst")
+        listName!!.add("Software Developer")
+        listName!!.add("Human Resources Manager")
+        listName!!.add("Sustainability Consultant")
+        listName!!.add("Social Worker")
+        val adapterItem = ItemAdapter(this@WorkCommunityActivity, listName!!)
         val listView = findViewById<ListView>(R.id.list_view)
         listView.setAdapter(adapterItem)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (listName!!.contains(query)) {
+                    adapterItem.filter.filter(query)
+                    listView.setAdapter(adapterItem)
+                } else {
+                    Toast.makeText(this@WorkCommunityActivity, "No Job found..", Toast.LENGTH_LONG)
+                        .show()
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapterItem.filter.filter(newText)
+                listView.setAdapter(adapterItem)
+                return false
+            }
+        })
     }
 }
