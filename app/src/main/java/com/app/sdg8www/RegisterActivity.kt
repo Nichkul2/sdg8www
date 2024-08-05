@@ -86,7 +86,7 @@ class RegisterActivity : AppCompatActivity() {
                             val user = auth.currentUser
                             user?.uid
                             database =
-                                FirebaseDatabase.getInstance("https://loginsignup-auth-7e379-default-rtdb.firebaseio.com")
+                                FirebaseDatabase.getInstance("https://sdg8-460da-default-rtdb.firebaseio.com/")
                             reference = database!!.getReference("Users")
                             val userProfile = User(etBio.text.toString(),usernameEditText.text.toString(),phoneNumberEditText.text.toString(),uuid)
                             reference!!.child(user?.uid.toString()).setValue(userProfile)
