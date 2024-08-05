@@ -11,11 +11,14 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Spinner
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -30,10 +33,15 @@ import android.util.Log
 
 class InterviewCoachActivity : AppCompatActivity() {
 
-    private var listData: ArrayList<String>? = null
+    private var listData1: ArrayList<String>? = null
+    private var listData2: ArrayList<String>? = null
+    private var listData3: ArrayList<String>? = null
+    private var currentListData: ArrayList<String>? = null
+    private var jobList: ArrayList<String>? = null
     private var currentIndex = 0
     private lateinit var database: DatabaseReference
     private lateinit var userEmail: String
+    private lateinit var selectedJob: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +60,13 @@ class InterviewCoachActivity : AppCompatActivity() {
         // Initialize the Firebase database reference with the user's email
         database = Firebase.database.reference.child("Interview").child(userEmail.replace(".", ","))
 
+        // Clear previous conversation entries
+        database.removeValue().addOnSuccessListener {
+            Log.d("InterviewCoachActivity", "Previous conversation entries cleared.")
+        }.addOnFailureListener {
+            Log.e("InterviewCoachActivity", "Failed to clear previous conversation entries.", it)
+        }
+
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val alert = AlertDialog.Builder(this@InterviewCoachActivity)
@@ -64,25 +79,62 @@ class InterviewCoachActivity : AppCompatActivity() {
             }
         })
 
-        listData = ArrayList()
-        listData!!.apply {
-            add("Test chat bot")
-            add("Welcome to job interview")
-            add("Hello")
-            add("test for chat bot")
-            add("ทดสอบการใช้งาน")
-            add("รบกวนสอบถามเพิ่มเติม")
-            add("ค้นหางานที่ต้องการ")
-            add("Serch your job")
-            add("coach for your job")
-            add("test me!!")
-            add("random test")
-            add("สอบถามรายละเอียด")
-            add("new message")
-            add("ทดสอบระบบ")
-            add("sdg8www application")
-            add("test my app")
-            add("Welcome to job interview")
+        listData1 = ArrayList()
+        listData1!!.apply {
+            add("Why are you interested in becoming a teacher/educator?")
+            add("What do you think are the most important qualities of a good teacher?")
+            add("How do you think technology can be used to help students learn?")
+            add("Can you describe your ideal classroom?")
+            add("What do you know about SDG#8?")
+        }
+
+        listData2 = ArrayList()
+        listData2!!.apply {
+            add("Can you think of a way technology can help people find jobs?")
+            add("How could software help businesses create more jobs?")
+            add("Can you imagine how technology can improve working conditions?")
+            add("How can software help small businesses compete with bigger ones?")
+            add("Can you think of a way to use technology to help people learn new skills for jobs?")
+        }
+
+        listData3 = ArrayList()
+        listData3!!.apply {
+            add("Why are you interested in a career in sustainability?")
+            add("What are some of the environmental challenges the world is facing?")
+            add("How do you stay informed about sustainability trends and news?")
+            add("What does it mean for a job to be sustainable?")
+            add("How would you approach a project to reduce a company's carbon footprint?")
+        }
+
+        jobList = ArrayList()
+        jobList!!.apply {
+            add("Teacher/Educator")
+            add("Software Developer")
+            add("Sustainability Consultant")
+        }
+
+        val jobSpinner = findViewById<Spinner>(R.id.job_spinner)
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, jobList!!)
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        jobSpinner.adapter = spinnerAdapter
+
+        jobSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                selectedJob = jobList!![position]
+                when (position) {
+                    0 -> currentListData = listData1
+                    1 -> currentListData = listData2
+                    2 -> currentListData = listData3
+                }
+                currentIndex = 0
+                val layout = findViewById<LinearLayout>(R.id.layout_list)
+                layout.removeAllViews() // Clear the conversation when a new job is selected
+                displayNextQuestion(layout)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
         }
 
         val icHome = findViewById<ImageView>(R.id.ic_home)
@@ -106,8 +158,8 @@ class InterviewCoachActivity : AppCompatActivity() {
                 textViewUser.setPadding(20, 20, 20, 20)
                 layout.addView(textViewUser)
 
-                val botResponse = if (currentIndex < listData!!.size) {
-                    listData!![currentIndex++]
+                val botResponse = if (currentIndex < currentListData!!.size) {
+                    currentListData!![currentIndex++]
                 } else {
                     "no more questions!"
                 }
@@ -128,7 +180,7 @@ class InterviewCoachActivity : AppCompatActivity() {
         }
 
         result.setOnClickListener {
-            val intent = Intent(this@InterviewCoachActivity, ResultActivity::class.java)
+            val intent = Intent(this@InterviewCoachActivity, MainAiActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -160,7 +212,26 @@ class InterviewCoachActivity : AppCompatActivity() {
         header.paint.shader = interviewTextShader
     }
 
+    private fun displayNextQuestion(layout: LinearLayout) {
+        if (currentIndex < currentListData!!.size) {
+            val botResponse = currentListData!![currentIndex++]
+            val textViewBot = TextView(this)
+            textViewBot.gravity = Gravity.LEFT
+            textViewBot.setTextColor(Color.parseColor("#ffffff"))
+            textViewBot.text = botResponse
+            textViewBot.setBackgroundResource(R.drawable.background_circle_result)
+            textViewBot.setPadding(20, 20, 20, 20)
+            layout.addView(textViewBot)
+        } else {
+            val textViewBot = TextView(this)
+            textViewBot.gravity = Gravity.LEFT
+            textViewBot.setTextColor(Color.parseColor("#ffffff"))
+            textViewBot.text = "no more questions!"
+            textViewBot.setBackgroundResource(R.drawable.background_circle_result)
+            textViewBot.setPadding(20, 20, 20, 20)
+            layout.addView(textViewBot)
+        }
+    }
+
     data class ConversationEntry(val userMessage: String, val botResponse: String)
 }
-
-//comment 3 aug 8pm
