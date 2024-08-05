@@ -21,14 +21,14 @@ class BakingViewModel : ViewModel() {
         requestOptions = RequestOptions(apiVersion = "v1beta")
     )
 
-    fun sendPrompt(jobTitle: String, prompt: String) {
+    fun sendPrompt(selectedAiRecommendation: String, prompt: String, aiDialog: String) {
         _uiState.value = UiState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = generativeModel.generateContent(
                     content {
-                        text("$jobTitle: $prompt")
+                        text("$selectedAiRecommendation: $prompt\nAI Dialog: $aiDialog")
                     }
                 )
                 response.text?.let { outputContent ->
