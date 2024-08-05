@@ -10,4 +10,6 @@
     <color name="gray2">#393643</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="cadet_blue">#5F9EA0</color>
+    <color name="teal">#008080</color>
 </resources>

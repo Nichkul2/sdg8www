@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
                 icShowPassword.setImageResource(R.drawable.hide)
             } else{
                 passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance();
-                icShowPassword.setImageResource(R.drawable.hide1)
+                icShowPassword.setImageResource(R.drawable.hide)
 
             }
         }
