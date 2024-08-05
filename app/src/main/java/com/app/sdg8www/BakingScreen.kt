@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
-//import androidx.compose.foundation.layout.requiredSize
-//import androidx.compose.foundation.lazy.LazyRow
-//import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll

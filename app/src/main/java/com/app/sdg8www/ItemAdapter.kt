@@ -9,50 +9,41 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
+// ItemAdapter는 Item 객체의 목록을 표시하기 위해 ArrayAdapter를 확장합니다.
+class ItemAdapter(context: Context, data: ArrayList<Item>) :
+    ArrayAdapter<Item>(context, R.layout.item_list, data) {
 
-class ItemAdapter(context: Context, data: ArrayList<String>) :
-    ArrayAdapter<String?>(context, R.layout.item_list, data as List<String?>) {
-    var mContext: Context
-    private val mCaseList: List<String>
+    // mCaseList는 어댑터가 처리할 Item 객체 목록을 보관합니다.
+    private val mCaseList: List<Item> = data
+    private val mContext: Context = context
 
-    init {
-        mCaseList = data
-        mContext = context
-    }
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        var view = convertView
+        val item = mCaseList[position]
 
-    override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        var view = view
-        val itemCase = mCaseList[position]
-        val inflater = LayoutInflater.from(context)
-        view = inflater.inflate(R.layout.item_list, parent, false)
-        val txId = view.findViewById<TextView>(R.id.tx_id)
-        val txName = view.findViewById<TextView>(R.id.tx_name)
-        val txAddress = view.findViewById<TextView>(R.id.tx_description)
-        txId.text = (position+1).toString()
-        txName.text = itemCase
-        if ("Teacher/Educator" == itemCase){
-            txAddress.text = "Provide education and training to develop a skilled workforce that contributes to economic growth and sustainable development"
-        } else if ("Business Analyst" == itemCase){
-            txAddress.text = "Analyze business processes and recommend improvements to drive economic growth and job creation"
-        } else if ("Software Developer" == itemCase){
-            txAddress.text = "Design, develop, and maintain software applications that enhance business productivity and promote economic growth"
-        } else if ("Human Resources Manager" == itemCase){
-            txAddress.text = "Oversee recruitment and employee development programs to ensure fair and productive employment practices"
-        } else if ("Sustainability Consultant" == itemCase){
-            txAddress.text = "Advise organizations on sustainable practices that promote economic growth while minimizing environmental impact"
-        } else if ("Social Worker" == itemCase){
-            txAddress.text = "Support individuals and communities in overcoming barriers to employment and economic participation"
+        if (view == null) {
+            val inflater = LayoutInflater.from(context)
+            view = inflater.inflate(R.layout.item_list, parent, false)
         }
 
-        view.setOnClickListener(View.OnClickListener {
+        val txId = view!!.findViewById<TextView>(R.id.tx_id)
+        val txName = view.findViewById<TextView>(R.id.tx_name)
+        val txAddress = view.findViewById<TextView>(R.id.tx_description)
+
+        // 각 항목의 ID, 이름 및 설명을 설정합니다.
+        txId.text = (position + 1).toString()
+        txName.text = item.name
+        txAddress.text = item.description
+
+        // 항목을 클릭하면 DetailActivity로 이동합니다.
+        view.setOnClickListener {
             val intent = Intent(mContext, DetailActivity::class.java)
-            intent.putExtra("name", itemCase)
-            intent.putExtra("description", txAddress.text.toString())
+            intent.putExtra("name", item.name)
+            intent.putExtra("description", item.description)
+            intent.putExtra("id", item.id)
             mContext.startActivity(intent)
             (mContext as Activity).finish()
-
-        })
+        }
         return view
     }
-
 }

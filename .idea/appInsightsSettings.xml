@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.app.sdg8www" />
-                  <option name="mobileSdkAppId" value="1:899635226007:android:9172fbe09259e89a40d0d2" />
-                  <option name="projectId" value="loginsignup-auth-7e379" />
-                  <option name="projectNumber" value="899635226007" />
+                  <option name="mobileSdkAppId" value="1:1079391077324:android:c88783235de80f0baa1369" />
+                  <option name="projectId" value="sdg8-460da" />
+                  <option name="projectNumber" value="1079391077324" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
