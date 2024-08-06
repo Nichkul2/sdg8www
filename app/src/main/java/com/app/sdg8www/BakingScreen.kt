@@ -8,10 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
-import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -37,11 +33,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.runtime.LaunchedEffect
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 
-val jobTitles = arrayOf(
-    "Teacher / Consultant Job",
-    "Computer Engineering Job",
-    "Business Analyst Job"
+val AiRecommendations = arrayOf(
+    "Comment on my interview responses",
+    "Recommend me beneficial skills",
+    "Recommend me guideline for more study"
 )
 
 @Composable
@@ -53,6 +55,29 @@ fun BakingScreen(viewModel: BakingViewModel = viewModel()) {
     var isPromptFocused by remember { mutableStateOf(false) }
     val teal200 = colorResource(id = R.color.teal_200)
     val black = colorResource(id = R.color.black)
+    var aiDialog by remember { mutableStateOf("") }
+    var userEmail by remember { mutableStateOf("") }
+    lateinit var database: DatabaseReference
+
+    LaunchedEffect(Unit) {
+        // Get the logged-in user's email
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            userEmail = user.email ?: "unknown_user"
+            database = Firebase.database.reference.child("Interview").child(userEmail.replace(".", ","))
+
+            // Load conversation from database
+            database.get().addOnSuccessListener { dataSnapshot ->
+                val conversations = dataSnapshot.children.mapNotNull { it.getValue(ConversationEntry::class.java) }
+                val conversationText = conversations.joinToString(separator = "\n") {
+                    "User: ${it.userMessage}\nBot: ${it.botResponse}"
+                }
+                aiDialog = conversationText
+            }.addOnFailureListener { exception ->
+                aiDialog = "Failed to load conversations"
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -65,9 +90,9 @@ fun BakingScreen(viewModel: BakingViewModel = viewModel()) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(vertical = 8.dp)
         ) {
-            jobTitles.forEachIndexed { index, jobTitle ->
+            AiRecommendations.forEachIndexed { index, AiRecommendation ->
                 Text(
-                    text = jobTitle,
+                    text = AiRecommendation,
                     color = if (selectedIndex == index) teal200 else black,
                     fontWeight = if (selectedIndex == index) FontWeight.Bold else FontWeight.Normal,
                     modifier = Modifier
@@ -104,8 +129,8 @@ fun BakingScreen(viewModel: BakingViewModel = viewModel()) {
 
         Button(onClick = {
             if (selectedIndex >= 0) {
-                val selectedJobTitle = jobTitles[selectedIndex]
-                viewModel.sendPrompt(selectedJobTitle, prompt)
+                val selectedAiRecommendation = AiRecommendations[selectedIndex]
+                viewModel.sendPrompt(selectedAiRecommendation, prompt, aiDialog)
             }
         }) {
             Text(text = stringResource(id = R.string.action_go))
@@ -119,3 +144,5 @@ fun BakingScreen(viewModel: BakingViewModel = viewModel()) {
         }
     }
 }
+
+data class ConversationEntry(val userMessage: String = "", val botResponse: String = "")
